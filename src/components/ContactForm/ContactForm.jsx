@@ -1,7 +1,6 @@
-import shortid from 'shortid';
 import { Form, Label, Input, Button, FormWrap } from './ContactForm.styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/contactsSlice';
+import { addContact } from 'redux/operations';
 import { getContacts } from 'redux/selectors';
 import { useState } from 'react';
 
@@ -35,7 +34,7 @@ const ContactForm = () => {
       alert(`${number} is already in contacts.`);
       return;
     } else {
-      dispatch(addContact(name, number));
+      dispatch(addContact({ name, number }));
     }
     setName('');
     setNumber('');
@@ -44,7 +43,7 @@ const ContactForm = () => {
   return (
     <FormWrap>
       <Form onSubmit={handleSubmit}>
-        <Label htmlFor={shortid.generate()}>
+        <Label >
           Name
           <Input
             type="text"
@@ -54,10 +53,9 @@ const ContactForm = () => {
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             required
-            id={shortid.generate()}
           />
         </Label>
-        <Label htmlFor={shortid.generate()}>
+        <Label>
           Number
           <Input
             type="tel"
@@ -66,8 +64,7 @@ const ContactForm = () => {
             onChange={handleNumberChange}
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-            required
-            id={shortid.generate()}
+            required  
           />
         </Label>
         <Button type="submit">Add contact</Button>

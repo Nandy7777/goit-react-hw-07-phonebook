@@ -3,16 +3,16 @@ import { Item, Button } from './ContactList.styled';
 import { useDispatch } from 'react-redux';
 import { deleteContact } from 'redux/operations';
 
-const ContactListItem = ({ contact }) => {
+const ContactListItem = ({ name, number, id }) => {
   const dispatch = useDispatch();
   const onDelete = id => dispatch(deleteContact(id));
 
   return (
     <Item>
       <p>
-        {contact.name}: {contact.number}
+        {name}: {number}
       </p>
-      <Button type="button" onClick={() => onDelete(contact.id)}>
+      <Button type="button" onClick={() => onDelete(id)}>
         Delete
       </Button>
     </Item>
@@ -20,11 +20,11 @@ const ContactListItem = ({ contact }) => {
 };
 
 ContactListItem.propTypes = {
-  contact: PropTypes.exact({
+  
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     number: PropTypes.string.isRequired,
-  }),
+ 
 };
 
 export default ContactListItem;
